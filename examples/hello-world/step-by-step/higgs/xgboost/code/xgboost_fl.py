@@ -40,7 +40,7 @@ def _to_data_tuple(data):
     # split to feature and label
     x = data.iloc[:, 1:]
     y = data.iloc[:, 0]
-    return x.to_numpy(), y.to_numpy(), data_num
+    return x, y, data_num
 
 
 def load_features(feature_data_path: str) -> List:
