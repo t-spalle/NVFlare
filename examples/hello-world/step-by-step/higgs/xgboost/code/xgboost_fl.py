@@ -64,7 +64,7 @@ def load_data(
             data_path, names=data_features, sep=r"\s*,\s*", engine="python", na_values="?", skiprows=skip_rows
         )
 
-        train, test = train_test_split(df, test_size=0.1, random_state=random_state)
+        train, test = train_test_split(df, test_size=0.5, random_state=random_state)
 
         return {"train": train, "test": test}
 
