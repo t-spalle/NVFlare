@@ -39,8 +39,8 @@ def _to_data_tuple(data):
     data_num = data.shape[0]
     # split to feature and label
     x = data.iloc[:, 1:]
-    y = data.iloc[:, 0]
-    return x, y, data_num
+    y = data['Label']
+    return x.to_numpy(), y.to_numpy(), data_num
 
 
 def load_features(feature_data_path: str) -> List:
@@ -105,10 +105,11 @@ def main():
     )
 
     data = to_dataset_tuple(data)
-    dataset = transform_data(data)
+    dataset = data
     x_train, y_train, train_size = dataset["train"]
     x_test, y_test, test_size = dataset["test"]
-
+    x_train = x_train.astype('category')
+    x_test = x_test.astype('category')
     # convert to xgboost data matrix
     dmat_train = xgb.DMatrix(x_train, label=y_train)
     dmat_test = xgb.DMatrix(x_test, label=y_test)
@@ -140,6 +141,7 @@ def main():
                 dmat_train,
                 num_boost_round=1,
                 evals=[(dmat_train, "train"), (dmat_test, "test")],
+                enable_categorical=True,
             )
             config = model.save_config()
         else:
