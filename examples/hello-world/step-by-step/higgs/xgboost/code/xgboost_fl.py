@@ -139,7 +139,7 @@ def main():
                 dmat_train,
                 num_boost_round=1,
                 evals=[(dmat_train, "train"), (dmat_test, "test")],
-                enable_categorical=True,
+                
             )
             config = model.save_config()
         else:
