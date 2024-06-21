@@ -108,6 +108,8 @@ def main():
     dataset = data
     x_train, y_train, train_size = dataset["train"]
     x_test, y_test, test_size = dataset["test"]
+    x_train=x_train.astype(str)
+    x_test=x_test.astype(str)
     # convert to xgboost data matrix
     dmat_train = xgb.DMatrix(x_train, label=y_train)
     dmat_test = xgb.DMatrix(x_test, label=y_test)
