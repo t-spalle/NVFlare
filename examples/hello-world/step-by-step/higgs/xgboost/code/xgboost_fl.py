@@ -38,8 +38,8 @@ def to_dataset_tuple(data: dict):
 def _to_data_tuple(data):
     data_num = data.shape[0]
     # split to feature and label
-    features=['OldPredictionScore','AttackBot']
-    x = data[features]
+
+    x = data['AttackBot']
     y = data['Label']
     return x.to_numpy(), y.to_numpy(), data_num
 
