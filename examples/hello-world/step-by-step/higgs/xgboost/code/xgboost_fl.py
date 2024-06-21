@@ -64,7 +64,7 @@ def load_data(
             data_path, names=data_features, sep=r"\s*,\s*", engine="python", na_values="?", skiprows=skip_rows
         )
 
-        train, test = train_test_split(df, test_size=test_size, random_state=random_state)
+        train, test = train_test_split(df, test_size=0.1, random_state=random_state)
 
         return {"train": train, "test": test}
 
@@ -105,7 +105,7 @@ def main():
     )
 
     data = to_dataset_tuple(data)
-    dataset = data
+    dataset = transform_data(data)
     x_train, y_train, train_size = dataset["train"]
     x_test, y_test, test_size = dataset["test"]
     # convert to xgboost data matrix
