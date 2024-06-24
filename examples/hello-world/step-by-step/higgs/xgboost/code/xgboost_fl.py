@@ -41,6 +41,7 @@ def _to_data_tuple(data):
     d=data[2:]
     x = d.iloc[:, 1:]
     y = d.iloc[:, 0]
+    print(x,y)
     return x.to_numpy(), y.to_numpy(), data_num
 
 
