@@ -38,9 +38,9 @@ def to_dataset_tuple(data: dict):
 def _to_data_tuple(data):
     data_num = data.shape[0]
     # split to feature and label
-    d=data[2:]
-    x = d.iloc[:, 1:]
-    y = d.iloc[:, 0]
+    
+    x = data.iloc[:, 1:]
+    y = data.iloc[:, 0]
     print(x,y)
     return x.to_numpy(), y.to_numpy(), data_num
 
@@ -65,7 +65,7 @@ def load_data(
         df: pd.DataFrame = pd.read_csv(
             data_path, names=data_features, sep=r"\s*,\s*", engine="python", na_values="?", skiprows=skip_rows
         )
-
+        df=df.iloc[1:]
         train, test = train_test_split(df, test_size=0.5, random_state=random_state)
 
         return {"train": train, "test": test}
