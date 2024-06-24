@@ -38,8 +38,9 @@ def to_dataset_tuple(data: dict):
 def _to_data_tuple(data):
     data_num = data.shape[0]
     # split to feature and label
-    x = data.iloc[:, 1:]
-    y = data.iloc[:, 0]
+    d=data[2:]
+    x = d.iloc[:, 1:]
+    y = d.iloc[:, 0]
     return x.to_numpy(), y.to_numpy(), data_num
 
 
