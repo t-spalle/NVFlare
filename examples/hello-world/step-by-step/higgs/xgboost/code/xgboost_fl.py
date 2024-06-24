@@ -38,8 +38,8 @@ def to_dataset_tuple(data: dict):
 def _to_data_tuple(data):
     data_num = data.shape[0]
     # split to feature and label
-    col = [ col in data.columns and col != 'Label' ]
-    x = data[col]
+    colx = [ col for col in data.columns and col != 'Label' ]
+    x = data[colx]
     y = data['Label']
     x.drop(index=0)
     y.drop(index=0)
