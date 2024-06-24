@@ -38,8 +38,11 @@ def to_dataset_tuple(data: dict):
 def _to_data_tuple(data):
     data_num = data.shape[0]
     # split to feature and label
-    x = data.iloc[:, 1:]
-    y = data.iloc[:, 0]
+    col = [ col in data.columns and col != 'Label' ]
+    x = data[col]
+    y = data['Label']
+    x.drop(index=0)
+    y.drop(index=0)
     return x.to_numpy(), y.to_numpy(), data_num
 
 
@@ -105,7 +108,7 @@ def main():
     )
 
     data = to_dataset_tuple(data)
-    dataset = transform_data(data)
+    dataset = data
     x_train, y_train, train_size = dataset["train"]
     x_test, y_test, test_size = dataset["test"]
     # convert to xgboost data matrix
