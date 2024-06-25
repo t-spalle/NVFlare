@@ -68,9 +68,10 @@ def load_data(
         df2=df2.iloc[1:]
         test=df2
 
-
+        return {"train": train, "test": test}
     except Exception as e:
         raise Exception(f"Load data for path '{data_path}' failed! {e}")
+
 
 
 def transform_data(data: Dict[str, Tuple]) -> Dict[str, Tuple]:
