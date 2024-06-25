@@ -95,8 +95,8 @@ def main():
     parser = define_args_parser()
     args = parser.parse_args()
     data_root_dir = args.data_root_dir
-    random_state = args.random_state
-    test_size = args.test_size
+    #random_state = args.random_state
+    #test_size = args.test_size
     skip_rows = args.skip_rows
     num_client_bagging = args.num_client_bagging
 
