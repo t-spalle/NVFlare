@@ -38,7 +38,6 @@ def to_dataset_tuple(data: dict):
 def _to_data_tuple(data):
     data_num = data.shape[0]
     # split to feature and label
-    
     x = data.iloc[:, 1:]
     y = data.iloc[:, 0]
 
@@ -59,14 +58,22 @@ def load_features(feature_data_path: str) -> List:
 
 
 def load_data(
-    data_path: str, data_features: List, random_state: int, test_size: float, skip_rows=None
+    data_path: str, data_path2:str, data_features: List, random_state: int, test_size: float, skip_rows=None
 ) -> Dict[str, pd.DataFrame]:
     try:
         df: pd.DataFrame = pd.read_csv(
             data_path, names=data_features, sep=r"\s*,\s*", engine="python", na_values="?", skiprows=skip_rows
         )
         df=df.iloc[1:]
-        train, test = train_test_split(df, test_size=0.5, random_state=random_state)
+        #train, test = train_test_split(df, test_size=0.5, random_state=random_state)
+        train=df
+        #for testing data using recent data 
+    try:
+        df2: pd.DataFrame = pd.read_csv(
+            data_path2, names=data_features, sep=r"\s*,\s*", engine="python", na_values="?", skiprows=skip_rows
+        )
+        df2=df2.iloc[1:]
+        test=df2
 
         return {"train": train, "test": test}
 
@@ -102,8 +109,9 @@ def main():
     n_features = len(features) - 1  # remove label
 
     data_path = f"{data_root_dir}/{site_name}.csv"
+    data_path2=f"{data_root_dir}/test.csv"
     data = load_data(
-        data_path=data_path, data_features=features, random_state=random_state, test_size=test_size, skip_rows=skip_rows
+        data_path=data_path,data_path2=data_path2, data_features=features, random_state=random_state, test_size=test_size, skip_rows=skip_rows
     )
 
     data = to_dataset_tuple(data)
@@ -193,6 +201,7 @@ def evaluate_model(x_test, model, y_test):
 def define_args_parser():
     parser = argparse.ArgumentParser(description="scikit learn linear model with SGD")
     parser.add_argument("--data_root_dir", type=str, help="root directory path to csv data file")
+    parser.add_argument("--random_state", type=int, default=0, help="random state")
     parser.add_argument("--random_state", type=int, default=0, help="random state")
     parser.add_argument("--test_size", type=float, default=0.2, help="test ratio, default to 20%")
     parser.add_argument(
