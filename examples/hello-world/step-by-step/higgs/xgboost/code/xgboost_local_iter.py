@@ -72,7 +72,6 @@ def load_data(
         test=df2
 
         return {"train": train, "test": test}
-
     except Exception as e:
         raise Exception(f"Load data for path '{data_path}' failed! {e}")
 
