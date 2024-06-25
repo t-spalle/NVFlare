@@ -56,18 +56,14 @@ def load_features(feature_data_path: str) -> List:
 
 def load_data(
     data_path: str,data_path2: str, data_features: List, skip_rows=None) -> Dict[str, pd.DataFrame]:
-     try:
-        df: pd.DataFrame = pd.read_csv(
-            data_path, names=data_features, sep=r"\s*,\s*", engine="python", na_values="?", skiprows=skip_rows
-        )
+    try:
+        df: pd.DataFrame = pd.read_csv(data_path, names=data_features, sep=r"\s*,\s*", engine="python", na_values="?", skiprows=skip_rows)
         df=df.iloc[1:]
         #train, test = train_test_split(df, test_size=0.5, random_state=random_state)
         train=df
         #for testing data using recent data 
 
-        df2: pd.DataFrame = pd.read_csv(
-            data_path2, names=data_features, sep=r"\s*,\s*", engine="python", na_values="?", skiprows=skip_rows
-        )
+        df2: pd.DataFrame = pd.read_csv(data_path2, names=data_features, sep=r"\s*,\s*", engine="python", na_values="?", skiprows=skip_rows)
         df2=df2.iloc[1:]
         test=df2
 
