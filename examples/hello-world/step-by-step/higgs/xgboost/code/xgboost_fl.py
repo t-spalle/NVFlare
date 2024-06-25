@@ -68,7 +68,7 @@ def load_data(
         #train, test = train_test_split(df, test_size=0.5, random_state=random_state)
         train=df
         #for testing data using recent data 
-    try:
+        
         df2: pd.DataFrame = pd.read_csv(
             data_path2, names=data_features, sep=r"\s*,\s*", engine="python", na_values="?", skiprows=skip_rows
         )
