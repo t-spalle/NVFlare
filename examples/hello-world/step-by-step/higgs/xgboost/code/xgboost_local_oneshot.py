@@ -151,8 +151,8 @@ def evaluate_model(x_test, model, y_test):
 def define_args_parser():
     parser = argparse.ArgumentParser(description="scikit learn linear model with SGD")
     parser.add_argument("--data_root_dir", type=str, help="root directory path to csv data file")
-    parser.add_argument("--random_state", type=int, default=0, help="random state")
-    parser.add_argument("--test_size", type=float, default=0.2, help="test ratio, default to 20%")
+    #parser.add_argument("--random_state", type=int, default=0, help="random state")
+    #parser.add_argument("--test_size", type=float, default=0.2, help="test ratio, default to 20%")
     parser.add_argument(
         "--skip_rows",
         type=str,
