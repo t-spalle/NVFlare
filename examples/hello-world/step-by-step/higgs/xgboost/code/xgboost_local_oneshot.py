@@ -52,16 +52,23 @@ def load_features(feature_data_path: str) -> List:
 
 
 def load_data(
-    data_path: str, data_features: List, random_state: int, test_size: float, skip_rows=None
+    data_path: str,data_path2 :str, data_features: List, random_state: int, test_size: float, skip_rows=None
 ) -> Dict[str, pd.DataFrame]:
     try:
         df: pd.DataFrame = pd.read_csv(
             data_path, names=data_features, sep=r"\s*,\s*", engine="python", na_values="?", skiprows=skip_rows
         )
+        df=df.iloc[1:]
+        #train, test = train_test_split(df, test_size=0.5, random_state=random_state)
+        train=df
+        #for testing data using recent data 
+    try:
+        df2: pd.DataFrame = pd.read_csv(
+            data_path2, names=data_features, sep=r"\s*,\s*", engine="python", na_values="?", skiprows=skip_rows
+        )
+        df2=df2.iloc[1:]
+        test=df2
 
-        train, test = train_test_split(df, test_size=test_size, random_state=random_state)
-
-        return {"train": train, "test": test}
 
     except Exception as e:
         raise Exception(f"Load data for path '{data_path}' failed! {e}")
@@ -91,8 +98,9 @@ def main():
     n_features = len(features) - 1  # remove label
 
     data_path = f"{data_root_dir}/{site_name}.csv"
+    data_path2 = f"{data_root_dir}/test.csv"
     data = load_data(
-        data_path=data_path, data_features=features, random_state=random_state, test_size=test_size, skip_rows=skip_rows
+        data_path=data_path,data_path2=data_path2, data_features=features, random_state=random_state, test_size=test_size, skip_rows=skip_rows
     )
 
     data = to_dataset_tuple(data)
