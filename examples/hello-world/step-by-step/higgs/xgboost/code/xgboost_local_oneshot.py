@@ -52,8 +52,7 @@ def load_features(feature_data_path: str) -> List:
 
 
 def load_data(
-    data_path: str,data_path2 :str, data_features: List, random_state: int, test_size: float, skip_rows=None
-) -> Dict[str, pd.DataFrame]:
+    data_path: str,data_path2 :str, data_features: List, skip_rows=None) -> Dict[str, pd.DataFrame]:
     try:
         df: pd.DataFrame = pd.read_csv(
             data_path, names=data_features, sep=r"\s*,\s*", engine="python", na_values="?", skiprows=skip_rows
@@ -99,9 +98,7 @@ def main():
 
     data_path = f"{data_root_dir}/{site_name}.csv"
     data_path2 = f"{data_root_dir}/test.csv"
-    data = load_data(
-        data_path=data_path,data_path2=data_path2, data_features=features, random_state=random_state, test_size=test_size, skip_rows=skip_rows
-    )
+    data = load_data(data_path=data_path,data_path2=data_path2, data_features=features, skip_rows=skip_rows)
 
     data = to_dataset_tuple(data)
     dataset = transform_data(data)
